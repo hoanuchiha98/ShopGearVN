@@ -2,6 +2,7 @@ package com.uchiha.gearshop.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.uchiha.gearshop.common.enums.Status;
 import com.uchiha.gearshop.common.util.DateUtils;
 import lombok.Data;
 import lombok.Getter;
@@ -80,10 +81,6 @@ public class Response<T> {
                 .setMessage(ex.getMessage())
                 .setTimestamp(DateUtils.today());
         setErrors(error);
-    }
-
-    public enum Status {
-        OK, BAD_REQUEST, UNAUTHORIZED, VALIDATION_EXCEPTION, EXCEPTION, WRONG_CREDENTIALS, ACCESS_DENIED, NOT_FOUND, DUPLICATE_ENTITY
     }
 
     @Getter

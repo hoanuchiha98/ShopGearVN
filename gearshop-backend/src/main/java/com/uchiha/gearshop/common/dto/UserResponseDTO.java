@@ -2,7 +2,7 @@ package com.uchiha.gearshop.common.dto;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Data
 public class UserResponseDTO {
@@ -10,6 +10,6 @@ public class UserResponseDTO {
     private String password;
     private String username;
     private String fullname;
-    private Date birthday;
+    private Timestamp birthday;
     private String typeOfficer;
 }

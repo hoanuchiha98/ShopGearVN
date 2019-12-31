@@ -1,15 +1,21 @@
 package com.uchiha.gearshop.common.dto;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
-@Data
+@NoArgsConstructor
+@Setter
+@Getter
+@AllArgsConstructor
 public class UserRequestDTO {
     private int id;
     private String password;
     private String username;
     private String fullname;
-    private Date birthday;
+    private Timestamp birthday;
     private String typeOfficer;
 }

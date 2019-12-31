@@ -1,17 +1,19 @@
 package com.uchiha.gearshop.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Table(name = "tbuser")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class UserEntity implements Serializable {
     private static final long serialVersionUID = -3629800334935029751L;
     @Id
@@ -25,7 +27,7 @@ public class UserEntity implements Serializable {
     @Column(name = "fullname", nullable = true, length = 50)
     private String fullname;
     @Column(name = "birthday", nullable = true)
-    private Date birthday;
+    private Timestamp birthday;
     @Column(name = "typeOfficer", nullable = true, length = 50)
     private String typeOfficer;
 
@@ -61,11 +63,11 @@ public class UserEntity implements Serializable {
         this.fullname = fullname;
     }
 
-    public Date getBirthday() {
+    public Timestamp getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(Timestamp birthday) {
         this.birthday = birthday;
     }
 
@@ -77,7 +79,7 @@ public class UserEntity implements Serializable {
         this.typeOfficer = typeOfficer;
     }
 
-    public UserEntity(int id, String username, String fullname, Date birthday, String typeOfficer) {
+    public UserEntity(int id, String username, String fullname, Timestamp birthday, String typeOfficer) {
         super();
         this.id = id;
         this.username = username;
@@ -86,7 +88,7 @@ public class UserEntity implements Serializable {
         this.typeOfficer = typeOfficer;
     }
 
-    public UserEntity(String username, String password, String fullname, Date birthday, String typeOfficer) {
+    public UserEntity(String username, String password, String fullname, Timestamp birthday, String typeOfficer) {
         super();
         this.username = username;
         this.password = password;
