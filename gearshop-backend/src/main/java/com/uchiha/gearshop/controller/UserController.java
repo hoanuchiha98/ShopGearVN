@@ -38,8 +38,7 @@ public class UserController {
         List<UserEntity> userEntityList = null;
         try {
             userEntityList = userService.getAll();
-
-            response = (userEntityList.size() > 0) ? Response.ok().setPayload(userEntityList) : Response.notFound().setErrors(Constants.ERR_MSG_NOT_FOUND);
+            response = Response.ok().setPayload(userEntityList);
         } catch (Exception e) {
             response = Response.badRequest().setErrors(Constants.ERR_MSG_BAD_REQUEST);
         }
@@ -55,12 +54,11 @@ public class UserController {
         UserEntity userEntity = null;
         try {
             userEntity = userService.getById(id);
-            response = (userEntity != null) ? Response.ok().setPayload(userEntity) : Response.notFound().setErrors(Constants.ERR_MSG_NOT_FOUND);
+            response = Response.ok().setPayload(userEntity);
         } catch (Exception e) {
             response = Response.badRequest().setErrors(Constants.ERR_MSG_BAD_REQUEST);
         }
         // return
         return response;
     }
-
 }
