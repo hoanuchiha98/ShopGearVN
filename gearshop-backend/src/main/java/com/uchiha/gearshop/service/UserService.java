@@ -12,7 +12,7 @@ public interface UserService {
 
     int update(UserRequestDTO userRequestDTO);
 
-    int delete(Long id);
+    int delete(int id);
 
-    UserEntity getById(Long id);
+    UserEntity getById(int id);
 }

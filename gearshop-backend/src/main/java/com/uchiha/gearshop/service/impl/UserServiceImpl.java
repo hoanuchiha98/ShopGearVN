@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int delete(Long id) {
+    public int delete(int id) {
         UserEntity userEntity = null;
         try {
             userEntity = userRepository.getOne(id);
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity getById(Long id) {
+    public UserEntity getById(int id) {
         UserEntity userEntity = null;
         try {
             userEntity = userRepository.getOne(id);

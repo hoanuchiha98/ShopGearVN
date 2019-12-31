@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Data
 public class UserResponseDTO {
-    private Long id;
+    private int id;
     private String password;
     private String username;
     private String fullname;

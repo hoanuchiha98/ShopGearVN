@@ -17,7 +17,7 @@ public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
-    private Long id;
+    private int id;
     @Column(name = "password", nullable = true, length = 50)
     private String password;
     @Column(name = "username", nullable = true, length = 50)
@@ -29,29 +29,11 @@ public class UserEntity implements Serializable {
     @Column(name = "typeOfficer", nullable = true, length = 50)
     private String typeOfficer;
 
-    public UserEntity(Long id, String username, String fullname, Date birthday, String typeOfficer) {
-        super();
-        this.id = id;
-        this.username = username;
-        this.fullname = fullname;
-        this.birthday = birthday;
-        this.typeOfficer = typeOfficer;
-    }
-
-    public UserEntity(String username, String password, String fullname, Date birthday, String typeOfficer) {
-        super();
-        this.username = username;
-        this.password = password;
-        this.fullname = fullname;
-        this.birthday = birthday;
-        this.typeOfficer = typeOfficer;
-    }
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -92,6 +74,24 @@ public class UserEntity implements Serializable {
     }
 
     public void setTypeOfficer(String typeOfficer) {
+        this.typeOfficer = typeOfficer;
+    }
+
+    public UserEntity(int id, String username, String fullname, Date birthday, String typeOfficer) {
+        super();
+        this.id = id;
+        this.username = username;
+        this.fullname = fullname;
+        this.birthday = birthday;
+        this.typeOfficer = typeOfficer;
+    }
+
+    public UserEntity(String username, String password, String fullname, Date birthday, String typeOfficer) {
+        super();
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.birthday = birthday;
         this.typeOfficer = typeOfficer;
     }
 
