@@ -2,17 +2,21 @@ package com.uchiha.gearshop.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Table(name = "tbuser")
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@Accessors(chain = true)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class UserEntity implements Serializable {
     private static final long serialVersionUID = -3629800334935029751L;
@@ -27,74 +31,7 @@ public class UserEntity implements Serializable {
     @Column(name = "fullname", nullable = true, length = 50)
     private String fullname;
     @Column(name = "birthday", nullable = true)
-    private Timestamp birthday;
+    private Date birthday;
     @Column(name = "typeOfficer", nullable = true, length = 50)
     private String typeOfficer;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
-    public Timestamp getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Timestamp birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getTypeOfficer() {
-        return typeOfficer;
-    }
-
-    public void setTypeOfficer(String typeOfficer) {
-        this.typeOfficer = typeOfficer;
-    }
-
-    public UserEntity(int id, String username, String fullname, Timestamp birthday, String typeOfficer) {
-        super();
-        this.id = id;
-        this.username = username;
-        this.fullname = fullname;
-        this.birthday = birthday;
-        this.typeOfficer = typeOfficer;
-    }
-
-    public UserEntity(String username, String password, String fullname, Timestamp birthday, String typeOfficer) {
-        super();
-        this.username = username;
-        this.password = password;
-        this.fullname = fullname;
-        this.birthday = birthday;
-        this.typeOfficer = typeOfficer;
-    }
-
 }

@@ -1,86 +1,82 @@
 package com.uchiha.gearshop.service.impl;
 
-import com.uchiha.gearshop.common.dto.UserRequestDTO;
+import com.uchiha.gearshop.common.dto.mapper.UserMapper;
+import com.uchiha.gearshop.common.dto.model.UserDto;
+import com.uchiha.gearshop.common.enums.ResultEnum;
+import com.uchiha.gearshop.common.exception.CustomException;
 import com.uchiha.gearshop.dao.entity.UserEntity;
 import com.uchiha.gearshop.dao.repository.UserRepository;
 import com.uchiha.gearshop.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
-
     private Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
-    public List<UserEntity> getAll() {
-        List<UserEntity> userEntities = new ArrayList<>();
-        try {
-            for (UserEntity userEntity : userRepository.findAll()) {
-                UserEntity userEntity1 = new UserEntity(userEntity.getId(), userEntity.getUsername(), userEntity.getFullname(), userEntity.getBirthday(), userEntity.getTypeOfficer());
-                System.out.println("User::Item" + userEntity1);
-                userEntities.add(userEntity1);
+    public UserDto signup(UserDto userDto) {
+        UserEntity user = userRepository.findByUsername(userDto.getUsername());
+        if (user == null) {
+            if (userDto.getTypeOfficer().equals("admin")) {
+                userDto.setTypeOfficer("admin");
+            } else {
+                userDto.setTypeOfficer("user");
             }
-        } catch (Exception e) {
-            System.out.println(e);
+            user = new UserEntity()
+                    .setUsername(userDto.getUsername())
+                    .setPassword(userDto.getUsername())
+                    .setBirthday(userDto.getBirthday())
+                    .setTypeOfficer(userDto.getTypeOfficer());
+            return UserMapper.toUserDto(userRepository.save(user));
         }
-        System.out.println("User::List" + userEntities.get(0).getPassword());
-        return userEntities;
+        throw new CustomException(ResultEnum.USER_NOT_FOUNT);
     }
 
     @Override
-    public int create(UserRequestDTO userRequestDTO) {
-        UserEntity userEntity = null;
-        try {
-            userEntity = new UserEntity(userRequestDTO.getUsername(), userRequestDTO.getPassword(), userRequestDTO.getFullname(), userRequestDTO.getBirthday(), userRequestDTO.getTypeOfficer());
-            userRepository.save(userEntity);
-            return 1;
-        } catch (Exception e) {
-            System.out.println(e);
-            return 0;
+    public UserDto updateProfile(UserDto userDto) {
+        Optional<UserEntity> user = Optional.ofNullable(userRepository.findByUsername(userDto.getUsername()));
+        if (user.isPresent()) {
+            UserEntity userModel = user.get();
+            userModel.setFullname(userDto.getFullname())
+                    .setBirthday(userDto.getBirthday());
+            return UserMapper.toUserDto(userRepository.save(userModel));
         }
+        throw new CustomException(ResultEnum.USER_NOT_FOUNT);
     }
 
     @Override
-    public int update(UserRequestDTO userRequestDTO) {
-        UserEntity userEntity = null;
-        try {
-            userEntity = new UserEntity(userRequestDTO.getUsername(), userRequestDTO.getPassword(), userRequestDTO.getFullname(), userRequestDTO.getBirthday(), userRequestDTO.getTypeOfficer());
-            userRepository.save(userEntity);
-            return 1;
-        } catch (Exception e) {
-            System.out.println(e);
-            return 0;
+    public UserDto changePassword(UserDto userDto, String newPassword) {
+        Optional<UserEntity> user = Optional.ofNullable(userRepository.findByUsername(userDto.getUsername()));
+        if (user.isPresent()) {
+            UserEntity userModel = user.get();
+            userModel.setPassword(newPassword);
+            return UserMapper.toUserDto(userRepository.save(userModel));
         }
+        throw new CustomException(ResultEnum.USER_NOT_FOUNT);
     }
 
+    /**
+     * Search an existing user
+     *
+     * @param username
+     * @return
+     */
     @Override
-    public int delete(int id) {
-        UserEntity userEntity = null;
-        try {
-            userEntity = userRepository.getOne(id);
-            return (userEntity == null) ? 0 : 1;
-        } catch (Exception e) {
-            System.out.println(e);
-            return 0;
+    public UserDto findByUsername(String username) {
+        Optional<UserEntity> user = Optional.ofNullable(userRepository.findByUsername(username));
+        if (user.isPresent()) {
+            return modelMapper.map(user.get().setPassword(null), UserDto.class);
         }
-    }
-
-    @Override
-    public UserEntity getById(int id) {
-        UserEntity userEntity = null;
-        try {
-            userEntity = userRepository.getOne(id);
-        } catch (Exception e) {
-            System.out.println("User create::Error" + e);
-        }
-        return userEntity;
+        System.out.println("User ::Username" + username);
+        throw new CustomException(ResultEnum.USER_ALREADY_EXIT);
     }
 }

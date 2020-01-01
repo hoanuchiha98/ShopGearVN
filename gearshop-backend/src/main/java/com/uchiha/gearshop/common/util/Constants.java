@@ -14,4 +14,5 @@ public class Constants {
     public static final String ERR_MSG_FORBIDDEN = "Không có quyền yêu cầu tài nguyên";
     public static final String ERR_MSG_NOT_FOUND = "Không tìm thấy tài nguyên yêu cầu";
     public static final String ERR_MSG_METHOD_NOT_ALLOW = "Không hỗ trợ phương thức yêu cầu";
+    public static final String ERR_MSG_DUPLICATED_ENTITY = "Tài nguyên đã tồn tại";
 }

@@ -1,18 +1,13 @@
 package com.uchiha.gearshop.service;
 
-import com.uchiha.gearshop.common.dto.UserRequestDTO;
-import com.uchiha.gearshop.dao.entity.UserEntity;
-
-import java.util.List;
+import com.uchiha.gearshop.common.dto.model.UserDto;
 
 public interface UserService {
-    List<UserEntity> getAll();
+    UserDto signup(UserDto userDto);
 
-    int create(UserRequestDTO userRequestDTO);
+    UserDto updateProfile(UserDto userDto);
 
-    int update(UserRequestDTO userRequestDTO);
+    UserDto changePassword(UserDto userDto, String newPassword);
 
-    int delete(int id);
-
-    UserEntity getById(int id);
+    UserDto findByUsername(String username);
 }

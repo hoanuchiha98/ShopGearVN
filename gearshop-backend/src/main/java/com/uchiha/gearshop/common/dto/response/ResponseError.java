@@ -1,4 +1,4 @@
-package com.uchiha.gearshop.common.dto;
+package com.uchiha.gearshop.common.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
