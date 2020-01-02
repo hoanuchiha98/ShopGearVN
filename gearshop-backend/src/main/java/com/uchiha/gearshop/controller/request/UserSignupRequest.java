@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -22,8 +23,6 @@ public class UserSignupRequest {
 
     @NotEmpty(message = "constraints.NotEmpty.message")
     private String fullname;
-
-    @NotEmpty(message = "constraints.NotEmpty.message")
-    private String birthday;
+    private Date birthday;
 
 }

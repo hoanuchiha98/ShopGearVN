@@ -11,11 +11,14 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private UserRepository userRepository;
     private Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -33,7 +36,7 @@ public class UserServiceImpl implements UserService {
             }
             user = new UserEntity()
                     .setUsername(userDto.getUsername())
-                    .setPassword(userDto.getUsername())
+                    .setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()))
                     .setBirthday(userDto.getBirthday())
                     .setTypeOfficer(userDto.getTypeOfficer());
             return UserMapper.toUserDto(userRepository.save(user));
