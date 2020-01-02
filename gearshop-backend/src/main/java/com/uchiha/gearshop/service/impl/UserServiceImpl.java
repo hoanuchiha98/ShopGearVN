@@ -4,8 +4,8 @@ import com.uchiha.gearshop.common.dto.mapper.UserMapper;
 import com.uchiha.gearshop.common.dto.model.UserDto;
 import com.uchiha.gearshop.common.enums.ResultEnum;
 import com.uchiha.gearshop.common.exception.CustomException;
-import com.uchiha.gearshop.dao.entity.UserEntity;
-import com.uchiha.gearshop.dao.repository.UserRepository;
+import com.uchiha.gearshop.model.UserEntity;
+import com.uchiha.gearshop.repository.UserRepository;
 import com.uchiha.gearshop.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -61,8 +61,13 @@ public class UserServiceImpl implements UserService {
         Optional<UserEntity> user = Optional.ofNullable(userRepository.findByUsername(userDto.getUsername()));
         if (user.isPresent()) {
             UserEntity userModel = user.get();
-            userModel.setPassword(newPassword);
-            return UserMapper.toUserDto(userRepository.save(userModel));
+            System.out.println("HJJjhjjhhjhjh" + userModel);
+            if (!userModel.getPassword().equals(bCryptPasswordEncoder.encode(userDto.getPassword()))) {
+                throw new CustomException(ResultEnum.PASSWORD_WRONG);
+            } else {
+                userModel.setPassword(bCryptPasswordEncoder.encode(newPassword));
+                return UserMapper.toUserDto(userRepository.save(userModel));
+            }
         }
         throw new CustomException(ResultEnum.USER_NOT_FOUNT);
     }

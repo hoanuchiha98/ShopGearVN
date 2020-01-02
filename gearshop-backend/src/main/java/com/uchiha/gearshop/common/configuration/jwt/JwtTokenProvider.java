@@ -1,6 +1,6 @@
 package com.uchiha.gearshop.common.configuration.jwt;
 
-import com.uchiha.gearshop.dao.entity.CustomUserDetails;
+import com.uchiha.gearshop.model.CustomUserDetails;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
