@@ -1,6 +1,6 @@
-package com.uchiha.gearshop.dao.repository;
+package com.uchiha.gearshop.repository;
 
-import com.uchiha.gearshop.dao.entity.UserEntity;
+import com.uchiha.gearshop.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

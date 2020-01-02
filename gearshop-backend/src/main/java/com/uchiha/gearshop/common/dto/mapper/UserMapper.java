@@ -1,7 +1,7 @@
 package com.uchiha.gearshop.common.dto.mapper;
 
 import com.uchiha.gearshop.common.dto.model.UserDto;
-import com.uchiha.gearshop.dao.entity.UserEntity;
+import com.uchiha.gearshop.model.UserEntity;
 import org.springframework.stereotype.Component;
 
 

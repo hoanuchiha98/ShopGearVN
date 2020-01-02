@@ -1,4 +1,4 @@
-package com.uchiha.gearshop.dao.entity;
+package com.uchiha.gearshop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

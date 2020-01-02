@@ -4,7 +4,6 @@ import com.uchiha.gearshop.common.dto.model.UserDto;
 import com.uchiha.gearshop.common.dto.response.Response;
 import com.uchiha.gearshop.common.util.Constants;
 import com.uchiha.gearshop.controller.request.ChangePassRequest;
-import com.uchiha.gearshop.controller.request.UserSignupRequest;
 import com.uchiha.gearshop.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,9 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.security.Principal;
-
 
 @RestController
 @RequestMapping(value = "/api/users")
@@ -69,22 +66,6 @@ public class UserController {
 //        }
 //        return response;
 //    }
-    @ApiOperation("Đăng kí")
-    @PostMapping(value = "/signup", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public Response signup(@RequestBody @Valid UserSignupRequest userSignupRequest) {
-        return Response.ok().setPayload(registerUser(userSignupRequest, "user"));
-    }
-
-    private UserDto registerUser(UserSignupRequest userSignupRequest, String isAdmin) {
-        UserDto userDto = new UserDto()
-                .setUsername(userSignupRequest.getUsername())
-                .setPassword(userSignupRequest.getPassword())
-                .setFullname(userSignupRequest.getFullname())
-                .setBirthday(userSignupRequest.getBirthday())
-                .setTypeOfficer(isAdmin);
-
-        return userService.signup(userDto);
-    }
     @ApiOperation(value = "Xem user theo username")
     @GetMapping(value = "/findByUsername/{username}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public Response findByUsername(@PathVariable("username") String username, Principal principal) {
@@ -99,7 +80,7 @@ public class UserController {
 
     @ApiOperation(value = "Đổi mật khẩu")
     @PutMapping(value = "/changePassword", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Response changePassword(@ModelAttribute ChangePassRequest changePassRequest, Principal principal) {
+    public Response changePassword(@RequestBody ChangePassRequest changePassRequest, Principal principal) {
         try {
             if (!principal.getName().equals(changePassRequest.getUsername()))
                 throw new UsernameNotFoundException("Username not found");
@@ -123,4 +104,6 @@ public class UserController {
             return Response.badRequest().setErrors(Constants.ERR_MSG_BAD_REQUEST);
         }
     }
+
+
 }

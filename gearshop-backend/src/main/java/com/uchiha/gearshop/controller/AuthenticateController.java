@@ -1,25 +1,28 @@
 package com.uchiha.gearshop.controller;
 
 import com.uchiha.gearshop.common.configuration.jwt.JwtTokenProvider;
+import com.uchiha.gearshop.common.dto.model.UserDto;
 import com.uchiha.gearshop.common.dto.response.LoginResponse;
+import com.uchiha.gearshop.common.dto.response.Response;
 import com.uchiha.gearshop.controller.request.LoginRequest;
-import com.uchiha.gearshop.dao.entity.CustomUserDetails;
+import com.uchiha.gearshop.controller.request.UserSignupRequest;
+import com.uchiha.gearshop.model.CustomUserDetails;
+import com.uchiha.gearshop.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api")
 @Api(tags = {"authenticate"})
 public class AuthenticateController {
     @Autowired
@@ -27,6 +30,9 @@ public class AuthenticateController {
 
     @Autowired
     private JwtTokenProvider tokenProvider;
+
+    @Autowired
+    private UserService userService;
 
     @ApiOperation(value = "Dăng nhập")
     @PostMapping("/login")
@@ -47,5 +53,22 @@ public class AuthenticateController {
         // Trả về jwt cho người dùng.
         String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
         return new LoginResponse(jwt);
+    }
+
+    @ApiOperation("Đăng kí")
+    @PostMapping(value = "/signup", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public Response signup(@RequestBody @Valid UserSignupRequest userSignupRequest) {
+        return Response.ok().setPayload(registerUser(userSignupRequest, "user"));
+    }
+
+    private UserDto registerUser(UserSignupRequest userSignupRequest, String isAdmin) {
+        UserDto userDto = new UserDto()
+                .setUsername(userSignupRequest.getUsername())
+                .setPassword(userSignupRequest.getPassword())
+                .setFullname(userSignupRequest.getFullname())
+                .setBirthday(userSignupRequest.getBirthday())
+                .setTypeOfficer(isAdmin);
+
+        return userService.signup(userDto);
     }
 }

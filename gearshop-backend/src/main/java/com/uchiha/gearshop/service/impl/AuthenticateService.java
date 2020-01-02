@@ -1,8 +1,8 @@
 package com.uchiha.gearshop.service.impl;
 
-import com.uchiha.gearshop.dao.entity.CustomUserDetails;
-import com.uchiha.gearshop.dao.entity.UserEntity;
-import com.uchiha.gearshop.dao.repository.UserRepository;
+import com.uchiha.gearshop.model.CustomUserDetails;
+import com.uchiha.gearshop.model.UserEntity;
+import com.uchiha.gearshop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
