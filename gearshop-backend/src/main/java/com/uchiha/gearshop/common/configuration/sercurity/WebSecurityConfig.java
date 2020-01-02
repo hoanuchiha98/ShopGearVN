@@ -54,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/login", "/signup", "/home/**", "/api/**").permitAll() // Cho phép tất cả mọi người truy cập vào 2 địa chỉ này
+                .antMatchers("/images/**").permitAll()
                 .antMatchers("/v2/api-docs",
                         "/configuration/ui",
                         "/swagger-resources/**",
