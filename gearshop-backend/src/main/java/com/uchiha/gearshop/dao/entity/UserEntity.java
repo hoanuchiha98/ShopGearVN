@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 @Table(name = "tbuser")
 @Entity
@@ -24,7 +24,7 @@ public class UserEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
     private int id;
-    @Column(name = "password", nullable = true, length = 50)
+    @Column(name = "password")
     private String password;
     @Column(name = "username", nullable = true, length = 50)
     private String username;
