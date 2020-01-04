@@ -15,13 +15,13 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserSignupRequest {
-    @NotEmpty(message = "constraints.NotEmpty.message")
+    @NotEmpty
     private String username;
 
-    @NotEmpty(message = "constraints.NotEmpty.message")
+    @NotEmpty
     private String password;
 
-    @NotEmpty(message = "constraints.NotEmpty.message")
+    @NotEmpty
     private String fullname;
     private Date birthday;
 

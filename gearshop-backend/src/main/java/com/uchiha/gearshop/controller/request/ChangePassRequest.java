@@ -14,10 +14,10 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ChangePassRequest {
-    @NotEmpty(message = "constraints.NotEmpty.message")
+    @NotEmpty
     private String username;
-    @NotEmpty(message = "constraints.NotEmpty.message")
+    @NotEmpty
     private String olf_password;
-    @NotEmpty(message = "constraints.NotEmpty.message")
+    @NotEmpty
     private String new_passwod;
 }
