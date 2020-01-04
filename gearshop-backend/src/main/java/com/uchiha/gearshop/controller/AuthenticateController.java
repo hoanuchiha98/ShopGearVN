@@ -68,7 +68,7 @@ public class AuthenticateController {
                 .setFullname(userSignupRequest.getFullname())
                 .setBirthday(userSignupRequest.getBirthday())
                 .setTypeOfficer(isAdmin);
-
+        System.out.println("UserDTO::========" + userDto);
         return userService.signup(userDto);
     }
 }
