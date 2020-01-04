@@ -28,17 +28,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto signup(UserDto userDto) {
         UserEntity user = userRepository.findByUsername(userDto.getUsername());
+        System.out.println("Usder Is Exit::======" + user);
         if (user == null) {
             if (userDto.getTypeOfficer().equals("admin")) {
                 userDto.setTypeOfficer("admin");
             } else {
                 userDto.setTypeOfficer("user");
             }
+            System.out.println("Usder::======" + user);
             user = new UserEntity()
                     .setUsername(userDto.getUsername())
                     .setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()))
                     .setBirthday(userDto.getBirthday())
                     .setTypeOfficer(userDto.getTypeOfficer());
+            System.out.println("Usder Login::======" + user);
             return UserMapper.toUserDto(userRepository.save(user));
         }
         throw new CustomException(ResultEnum.USER_NOT_FOUNT);
