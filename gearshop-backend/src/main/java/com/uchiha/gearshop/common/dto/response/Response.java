@@ -3,7 +3,6 @@ package com.uchiha.gearshop.common.dto.response;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.uchiha.gearshop.common.enums.Status;
-import com.uchiha.gearshop.common.util.DateUtils;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -73,14 +72,6 @@ public class Response<T> {
         Response<T> response = new Response<>();
         response.setStatus(Status.DUPLICATE_ENTITY);
         return response;
-    }
-
-    public void addErrorMsgToResponse(String errorMsg, Exception ex) {
-        ResponseError error = new ResponseError()
-                .setDetails(errorMsg)
-                .setMessage(ex.getMessage())
-                .setTimestamp(DateUtils.today());
-        setErrors(error);
     }
 
     @Getter
