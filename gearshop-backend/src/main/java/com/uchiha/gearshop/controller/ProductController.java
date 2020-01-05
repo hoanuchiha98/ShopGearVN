@@ -13,6 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/products")
 @Api(tags = {"products"})
@@ -26,6 +29,16 @@ public class ProductController {
                             @RequestParam(value = "size", defaultValue = "3") Integer size) {
         PageRequest request = PageRequest.of(page - 1, size);
         Page<ProductDto> productDtoPage = productService.findAll(request);
+        if (productDtoPage.isEmpty()) {
+            return Response.badRequest().setErrors(Constants.ERR_MSG_NOT_FOUND);
+        }
+        return Response.ok().setPayload(productDtoPage);
+    }
+
+    @ApiOperation("Lấy danh sách sản phẩm")
+    @GetMapping(value = "/allv2", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public Response findAll() {
+        List<ProductDto> productDtoPage = productService.findAllv2();
         if (productDtoPage.isEmpty()) {
             return Response.badRequest().setErrors(Constants.ERR_MSG_NOT_FOUND);
         }

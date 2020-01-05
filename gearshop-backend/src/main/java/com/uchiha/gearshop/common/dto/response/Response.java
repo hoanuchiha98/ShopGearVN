@@ -17,7 +17,6 @@ public class Response<T> {
     private Status status;
     private T payload;
     private Object errors;
-    private Object metadata;
 
     public static <T> Response<T> badRequest() {
         Response<T> response = new Response<>();
@@ -48,5 +47,4 @@ public class Response<T> {
         response.setStatus(Status.EXCEPTION);
         return response;
     }
-
 }

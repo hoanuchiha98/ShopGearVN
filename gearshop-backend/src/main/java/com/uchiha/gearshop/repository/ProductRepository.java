@@ -8,8 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
+
+    @Query("select u from ProductEntity u")
+    List<ProductEntity> findAll();
+
     @Query("select u from ProductEntity u where u.id = :id")
     ProductEntity findByProductId(@Param("id") int id);
 

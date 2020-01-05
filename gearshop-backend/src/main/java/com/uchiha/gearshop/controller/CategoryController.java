@@ -7,10 +7,12 @@ import com.uchiha.gearshop.controller.request.CategoryRequest;
 import com.uchiha.gearshop.service.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.hibernate.validator.constraints.CreditCardNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/category")
 @Api(tags = {"categories"})

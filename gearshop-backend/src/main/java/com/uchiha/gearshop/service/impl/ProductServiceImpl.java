@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -59,6 +60,18 @@ public class ProductServiceImpl implements ProductService {
                     .collect(Collectors.toList()), pageable, totalElements);
         }
         return new PageImpl<ProductDto>(Collections.emptyList());
+    }
+
+    @Override
+    public List<ProductDto> findAllv2() {
+        List<ProductEntity> productEntities = productRepository.findAll();
+        if (!productEntities.isEmpty()) {
+            return productEntities
+                    .stream()
+                    .map(productEntity -> ProductMapper.toProductDto(productEntity))
+                    .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
     }
 
     @Override
